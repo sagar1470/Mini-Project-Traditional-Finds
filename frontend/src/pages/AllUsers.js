@@ -39,7 +39,7 @@ const AllUsers = () => {
 
 
   return (
-   <div className='bg-white pb-4'>
+   <div className='bg-white pb-4 mt-4'>
     <table className='w-full usertable '>
       <thead >
         <tr key={allUser._id} className='bg-black text-white'>

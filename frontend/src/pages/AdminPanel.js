@@ -21,7 +21,7 @@ useEffect(()=>{
 
       <aside className='bg-white min-h-full w-full max-w-60 customeShadow'>
 
-        <div className='h-40 flex justify-center flex-col items-center mt-3 '>
+        <div className='h-40 flex justify-center flex-col items-center mt-3 border-b-2'>
           <div className='text-4xl cursor-pointer pl-2 ' >
             {
               user?.profilePic ? (

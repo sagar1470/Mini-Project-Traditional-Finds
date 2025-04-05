@@ -11,18 +11,20 @@ import { toast } from 'react-toastify';
 
 const UploadProduct = ({
   onClose,
+  productData,
   fetchdata,
 }) => {
 
   const [data, setData] = useState({
-    productName: "",
-    brandName: "",
-    category: "",
-    productImage: [],
-    description: "",
-    price: "",
-    sellingPrice: "",
-    shopName: "",
+    ...productData,
+    productName: productData?.productName,
+    brandName: productData?.brandName,
+    category: productData?.category,
+    productImage: productData?.productImage || [],
+    description: productData?.description,
+    price: productData?.price,
+    sellingPrice: productData?.sellingPrice,
+    shopName: productData?.shopName,
   })
 
   const [fullScreenImage, setFullScreenImage] = useState("");
@@ -74,8 +76,8 @@ const UploadProduct = ({
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const response = await fetch(SummaryApi.uploadProduct.url, {
-      method: SummaryApi.uploadProduct.method,
+    const response = await fetch(SummaryApi.updateProduct.url, {
+      method: SummaryApi.updateProduct.method,
       credentials: "include",
       headers: {
         "content-type": "application/json"
@@ -84,6 +86,7 @@ const UploadProduct = ({
     })
 
     const responseData = await response.json()
+    console.log("update product", responseData);
    
     if (responseData.success) {
       toast.success(responseData?.message)
@@ -101,7 +104,7 @@ const UploadProduct = ({
       <div className='bg-white p-4 rounded w-full max-w-3xl h-full max-h-[85%] overflow-hidden pb-5'>
 
         <div className='flex justify-between items-center mt-4 mb-2'>
-          <h2 className='text-lg font-bold'> Upload Product</h2>
+          <h2 className='text-lg font-bold'> Edit Product</h2>
           <div className='w-fit ml-auto text-2xl hover:text-red-600 cursor-pointer ' onClick={onClose}>
             <CgClose />
           </div>
@@ -158,7 +161,7 @@ const UploadProduct = ({
           <label htmlFor='productImage' className='mt-3' >Product Image :</label>
 
           <label htmlFor='uploadImageInput'>
-            <div className='p-2 bg-slate-100 border rounded h-36 w-full flex justify-center items-center cursor-pointer'>
+            <div className='p-2 bg-slate-100 border rounded h-72 w-full flex justify-center items-center cursor-pointer'>
 
               <div className='text-slate-500 flex justify-center items-center flex-col gap-1'>
                 <span className='text-7xl'> <FaCloudUploadAlt /> </span>
@@ -198,7 +201,7 @@ const UploadProduct = ({
                 </div>
 
               ) : (
-                <p className='text-red-600 text-xs'>"Please upload product Image</p>
+                <p className='text-red-600 text-xs'>"Update product Image</p>
               )
             }
 
@@ -255,9 +258,9 @@ const UploadProduct = ({
 
 
           <button
-            className='px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 disabled:bg-red-400'
+            className='px-3 py-2 bg-red-600 text-white mb-10 hover:bg-red-700 disabled:bg-gray-400'
             disabled={!data.productName || !data.category || !data.price || !data.shopName}>
-            Upload Product
+            Update Product
           </button>
         </form>
 

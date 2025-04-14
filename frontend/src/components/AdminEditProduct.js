@@ -110,7 +110,6 @@ const UploadProduct = ({
           </div>
         </div>
 
-
         {/* upload section */}
 
         <form onSubmit={handleSubmit} className='grid p-5 gap-2 overflow-y-scroll h-full scrollbar scrollbar-thick scrollbar-thumb-gray-500 scrollbar-track-gray-300 '>

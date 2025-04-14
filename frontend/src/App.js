@@ -59,7 +59,7 @@ function App() {
 
       </Context.Provider>
     </>
-  );
+  )
 }
 
 export default App;

@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import image1 from '../assest/banner/img1.webp'
 import image2 from '../assest/banner/img2.webp'
 import image3 from '../assest/banner/img3.jpg'
 import image4 from '../assest/banner/img4.jpg'
 import image5 from '../assest/banner/img5.webp'
+import image6 from '../assest/banner/img.png.jpg'
+
 
 import imageMobile1 from '../assest/banner/img1_mobile.jpg'
 import imageMobile2 from '../assest/banner/img2_mobile.webp'
 import imageMobile3 from '../assest/banner/img3_mobile.jpg'
 import imageMobile4 from '../assest/banner/img4_mobile.jpg'
 import imageMobile5 from '../assest/banner/img5_mobile.png'
+import imageMobile6 from '../assest/banner/img6_mobile.jpg'
 
 import { FaAngleRight } from "react-icons/fa6";
 import { FaAngleLeft } from "react-icons/fa6";
@@ -22,31 +25,49 @@ const BannerProduct = () => {
     image2,
     image3,
     image4,
-    image5
+    image5,
+    image6
   ]
   const MobileImages = [
     imageMobile1,
     imageMobile2,
     imageMobile3,
     imageMobile4,
-    imageMobile5
+    imageMobile5,
+    imageMobile6
   ]
-  const nextImage= ()=>{
-    if(desktopImages.length - 1 > currentImage){
-    setCurrentImage(preve => preve + 1)
+  const nextImage = () => {
+    if (desktopImages.length - 1 > currentImage) {
+      setCurrentImage(preve => preve + 1)
     }
   }
-  const preveImage= ()=>{
-    if(currentImage != 0){
-    setCurrentImage(preve => preve - 1)
+  const preveImage = () => {
+    if (currentImage !== 0) {
+      setCurrentImage(preve => preve - 1)
     }
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (desktopImages.length - 1 > currentImage) {
+        nextImage()
+      }
+      else {
+        setCurrentImage(0)
+      }
+    }, 5000)
+
+    return () => {
+      clearInterval(interval)
+    }
+
+  }, [currentImage])
+
   return (
-    <div className='container mx-auto  '>
-      <div className=" relative md:left-[-2rem] lg:left-[-3rem] sm:left-[-4rem] sm:w-[calc(100%+r2em)] md:w-[calc(100%+4rem)] lg:w-[calc(100%+6rem)]
-      rounded ">
-        <div className='h-16 md:h-72 w-full bg-slate-500 relative'>
+    <div className='container mx-auto'>
+      <div className="relative md:left-[0rem] lg:left-[-3rem] sm:left-[-4rem] sm:w-[calc(100%+3rem)] md:w-[calc(100%+4rem)] lg:w-[calc(100%+5rem)]
+      rounded">
+        <div className='h-56 md:h-72 w-full bg-slate-500 relative'>
 
           <div className=' absolute z-10 h-full w-full md:flex items-center hidden'>
             <div className='flex justify-between w-full text-2xl '>
@@ -56,12 +77,13 @@ const BannerProduct = () => {
           </div>
 
 
-{/*Desktop and tablet version  */}
+          {/*Desktop and tablet version  */}
+
           <div className='hidden md:flex h-full w-full overflow-hidden'>
             {
               desktopImages.map((imageURL, index) => {
                 return (
-                  <div className='  w-full h-full  min-w-full min-h-full' key={imageURL} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
+                  <div className='w-full h-full min-w-full min-h-full ' key={imageURL + index} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
                     <img src={imageURL} alt='imageURL' className='w-full h-full' />
                   </div>
                 )
@@ -69,13 +91,14 @@ const BannerProduct = () => {
             }
           </div>
 
-{/* Mobile version */}
+
+          {/* Mobile version */}
           <div className='flex h-full w-full overflow-hidden md:hidden'>
             {
-              desktopImages.map((imageURL, index) => {
+              MobileImages.map((imageURL, index) => {
                 return (
-                  <div className='  w-full h-full  min-w-full min-h-full' key={imageURL} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
-                    <img src={imageURL} alt='imageURL' className='w-full h-full' />
+                  <div className='  w-full h-full  min-w-full min-h-full' key={imageURL + index} style={{ transform: `translateX(-${currentImage * 100}%)` }}>
+                    <img src={imageURL} alt='imageURL' className='w-full h-full object-cover' />
                   </div>
                 )
               })

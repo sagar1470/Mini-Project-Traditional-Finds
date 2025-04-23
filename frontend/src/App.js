@@ -52,7 +52,7 @@ function App() {
       />
       
       <Header />
-      <main className='min-h-[calc(100vh-100px)]'>
+      <main className='min-h-[calc(100vh-100px)] p-16'>
         <Outlet />
       </main>
       <Footer />

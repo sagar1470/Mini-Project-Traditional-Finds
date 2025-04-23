@@ -6,7 +6,7 @@ const displayNPRCurrency = (num) => {
 //     minimumFractionDigits : 2,
 //   })
 
-return `रु ${Number(num).toLocaleString('en-IN', {
+return `रु${Number(num).toLocaleString('en-IN', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;

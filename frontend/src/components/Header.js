@@ -38,22 +38,32 @@ const Header = () => {
   }
 
   return (
-    <header className='h-16 shadow-md @apply bg-red-50'>
+    <header className='h-16 shadow-md @apply bg-red-50 fixed w-full z-40 '>
       <div className='h-full container mx-auto flex items-center px-4 justify-between'>
         <div className=''>
           <Link to="/">
             <div className='w-14 h-14 mx-auto'>
-              {/* <Logo w={90} h={50} /> */}
               <img src={Logo1} alt='Logo 1' />
             </div>
           </Link>
         </div>
 
-        <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
+        {/* <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
           <input className='w-full outline-none pl-2 ' type='text' placeholder='search items' />
           <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
             <TbSearch />
           </div>
+        </div> */}
+
+        <div className="hidden md:flex items-center w-full max-w-md bg-white border border-gray-300 rounded-full px-2 py-1 shadow-sm focus-within:shadow-md transition-shadow duration-200">
+          <input
+            type="text"
+            placeholder="Search items..."
+            className="w-full bg-transparent outline-none px-3 py-1 text-sm placeholder-gray-500"
+          />
+          <button className="min-w-[42px] h-8 bg-red-600 hover:bg-red-700 text-white rounded-full flex items-center justify-center transition-colors duration-200">
+            <TbSearch className="text-lg" />
+          </button>
         </div>
 
         <div className='flex items-center gap-7'>
@@ -75,11 +85,12 @@ const Header = () => {
               )
             }{
               menuDisplay && (
-                <div className='absolute bg-white bottom-0 top-11 h-fit p-4 shadow-lg rounded'>
+                <div className='absolute bg-white z-10 bottom-0 top-11 h-fit p-4 shadow-lg rounded'>
                   <nav>
                     {
                       user?.role === ROLE.ADMIN && (
-                        <Link to={"/admin-panel/all-product"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2' onClick={() => { setMenuDisplay(preve => !preve) }} >Admin Panel</Link>
+                        <Link to={"/admin-panel/all-product"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2'
+                          onClick={() => { setMenuDisplay(preve => !preve) }} >Admin Panel</Link>
                       )}
                   </nav>
                 </div>
@@ -101,6 +112,7 @@ const Header = () => {
             {
               user?._id ? (
                 <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Logout</button>
+
               ) :
                 (
                   <Link to="/login">
@@ -109,6 +121,8 @@ const Header = () => {
                 )
             }
           </div>
+
+
         </div>
 
       </div>

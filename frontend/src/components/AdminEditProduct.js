@@ -100,7 +100,7 @@ const UploadProduct = ({
   }
 
   return (
-    <div className='w-full h-full fixed bg-slate-200 bg-opacity-60 top-0 left-0 right-0 bottom-0 flex justify-center items-center'>
+    <div className='w-full h-full fixed bg-slate-200 bg-opacity-60 top-0 left-0 right-0 bottom-0 flex justify-center z-10 items-center'>
       <div className='bg-white p-4 rounded w-full max-w-3xl h-full max-h-[85%] overflow-hidden pb-5'>
 
         <div className='flex justify-between items-center mt-4 mb-2'>
@@ -183,7 +183,7 @@ const UploadProduct = ({
                             width={120}
                             height={120}
                             alt={el}
-                            className='bg-slate-100 border m-1 cursor-pointer'
+                            className='bg-slate-100 border m-1 cursor-pointer h-full object-cover'
                             onClick={() => {
                               setOpenFullScreenImage(true)
                               setFullScreenImage(el)

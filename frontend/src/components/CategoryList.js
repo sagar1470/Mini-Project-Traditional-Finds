@@ -6,7 +6,7 @@ const CategoryList = () => {
   const [categoryProduct, setCategoryProduct] = useState([])
   const [loading, setLoading] = useState(false)
 
-  const categoryLoading = new Array(13).fill(null)
+  const categoryLoading = new Array(15).fill(null)
 
   const fetchCategoryProduct = async () => {
     const response = await fetch(SummaryApi.categoryProduct.url)
@@ -22,7 +22,7 @@ const CategoryList = () => {
 
   return (
     <div className='container mx-auto'>
-      <div className="relative md:left-[-2rem] lg:left-[-3rem] sm:left-[-4rem] sm:w-[calc(100%+r3em)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+7rem)] pl-3">
+      <div className=" relative md:left-[0rem] lg:left-[-3rem] sm:left-[-4rem] sm:w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+7rem)] overflow-hidden">
         {/* <div className='flex items-center p-4 gap-4 justify-between overflow-scroll scrollbar-none'> */}
         <div className="flex gap-6 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 py-2 scrollbar-none">
           {
@@ -38,7 +38,7 @@ const CategoryList = () => {
                   return (
                     <Link key={product.category}
                       to={`/product-category/${product.category}`}
-                      className="flex-shrink-0 space-y-2 mr-9 " >
+                      className="flex-shrink-0 space-y-2 sm:mr-0 md:mr-4 lg:mr-5 " >
 
                       <div className="w-16 h-16 md:w-20 md:h-20 bg-gray-100 hover:bg-gray-200 rounded-full overflow-hidden flex items-center justify-center shadow-sm transition ">
 

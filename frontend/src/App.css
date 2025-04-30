@@ -19,3 +19,167 @@
   display: none;
   
 }
+
+/* category List */
+@keyframes slide {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+.animate-slide-infinite {
+  animation: slide 20s linear infinite;
+}
+
+/* login */
+.shadow-glass {
+  box-shadow: 
+    0 4px 6px -1px rgba(255, 255, 255, 0.1),
+    0 2px 4px -1px rgba(255, 255, 255, 0.06);
+}
+
+.shadow-glass-lg {
+  box-shadow: 
+    0 10px 15px -3px rgba(255, 255, 255, 0.1),
+    0 4px 6px -2px rgba(255, 255, 255, 0.05);
+}
+
+@supports (backdrop-filter: blur(12px)) {
+  .backdrop-blur-lg {
+    backdrop-filter: blur(12px);
+  }
+}
+
+
+/* login */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+/* log-2 */
+@keyframes gradient-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-gradient-pulse {
+  animation: gradient-pulse 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 25s linear infinite;
+}
+
+/* sign up */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-ping-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* home page */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* categories */
+/* In your App.css */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* banner style */
+@keyframes progress-bar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.animate-progress-bar {
+  animation: progress-bar 5s linear forwards;
+}
+
+/* category list */
+@keyframes slide-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes progress-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.animate-slide-infinite {
+  animation: slide-infinite 40s linear infinite;
+}
+
+.animate-progress-bar {
+  animation: progress-bar 5s linear forwards;
+}
+
+@media (max-width: 768px) {
+  .animate-slide-infinite {
+    animation-duration: 25s;
+  }
+}

@@ -4,97 +4,128 @@ import displayNPRCurrency from '../helpers/displayCurrency.js'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import addToCart from '../helpers/addToCart.js'
+import { FiStar } from 'react-icons/fi'
+import { BsCart } from 'react-icons/bs'
 
 const VerticalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
-  const loadingList = new Array(13).fill(null)
-
-  const [scroll, setScroll] = useState(0)
+  const loadingList = new Array(4).fill(null)
   const scrollElement = useRef()
 
   const fetchData = async () => {
     setLoading(true)
     const categoryProduct = await fetchCategoryWiseProduct(category)
     setLoading(false)
-
     setData(categoryProduct?.data)
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
-  const scrollRight = ()=>{
-         scrollElement.current.scrollLeft += 300
-  }
-  const scrollLeft = ()=>{
-         scrollElement.current.scrollLeft -= 300
-  }
-
+  const scrollRight = () => scrollElement.current.scrollBy({ left: 300, behavior: 'smooth' })
+  const scrollLeft = () => scrollElement.current.scrollBy({ left: -300, behavior: 'smooth' })
 
   return (
-    <div className='container mx-auto my-6 relative'>
-      <div className="  relative md:left-[0rem] lg:left-[-3rem] sm:left-[-4rem] sm:w-[calc(100%+3rem)] md:w-[calc(100%+5rem)] lg:w-[calc(100%+7rem)]">
-
-        <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
-
-
-        <div className='flex items-center gap-4 md:gap-6 overflow-x-scroll scrollbar-none transition-all' ref={scrollElement} >
-
-          <button className='bg-white z-10 shadow-md rounded-full p-1 absolute hidden md:block left-0 text-lg' onClick={scrollLeft}><FaAngleLeft /></button>
-          <button className='bg-white z-10 shadow-md rounded-full p-1 absolute hidden md:block  right-0 text-lg' onClick={scrollRight}><FaAngleRight /></button>
-          {
-            loading ? (
-              loadingList.map((product,index)=>{
-                return(
-                    <div className='w-full min-w-[280px]  md:min-w-[320px] max-w-[280px] md:max-w-[320px]  bg-white rounded-sm shadow '>
-                        <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center animate-pulse'>
-                        </div>
-                        <div className='p-4 grid gap-3'>
-                            <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black p-1 py-2 animate-pulse rounded-full bg-slate-200'></h2>
-                            <p className='capitalize text-slate-500 p-1 animate-pulse rounded-full bg-slate-200  py-2'></p>
-                            <div className='flex gap-3'>
-                                <p className='text-red-600 font-medium p-1 animate-pulse rounded-full bg-slate-200 w-full  py-2'></p>
-                                <p className='text-slate-500 line-through p-1 animate-pulse rounded-full bg-slate-200 w-full  py-2'></p>
-                            </div>
-                            <button className='text-sm  text-white px-3  rounded-full bg-slate-200  py-2 animate-pulse'></button>
-                        </div>
-                    </div>
-                )
-            })
-            ):(
-                data.map((product, index) => {
-                return (
-                  <Link to={"product/"+product?._id} className='w-full min-w-[280px] max-w-[280px] md:min-w-[320px] bg-white rounded-sm shadow-sm'>
-                    <div className='bg-slate-300 h-52 min-w-[280px] md:min-w-[145px] flex justify-center items-center overflow-hidden'>
-                      <img src={product.productImage[0]} alt='' className='h-full min-w-full object-scale-down mix-blend-multiply hover:scale-105 transition-all' />
-                    </div>
-  
-                    <div className='p-2 md:grid md:p-4 grid gap-3'>
-                      <h2 className='font-medium text-base text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
-                      <p className='capitalize text-slate-500'>{product.category}</p>
-  
-                      <div className='flex gap-3 text-base sm:text-sm'>
-                        <p className='text-red-600 font-medium '>{displayNPRCurrency(product?.sellingPrice)}</p>
-                        <p className='text-slate-500 line-through'>{displayNPRCurrency(product?.price)}</p>
-                      </div>
-  
-                      <button className='bg-red-600 text-sm hover:bg-red-700 text-white px-3 py-0.5 rounded-full ' onClick={(e)=>{addToCart(e, product?._id)}}>
-                        Add to Cart
-                      </button>
-  
-                    </div>
-                  </Link>
-                )
-              })
-            )
-            
-          }
-
+    <div className=' mx-auto relative group'>
+      {/* Section Header */}
+      <div className='flex justify-between items-end mb-8 px-4'>
+        <div>
+          <h2 className='text-3xl font-bold text-stone-800'>{heading}</h2>
+          <div className='h-1 w-24 bg-amber-500 mt-2 rounded-full' />
         </div>
+        <div className='hidden md:flex gap-4'>
+          <button onClick={scrollLeft} className='p-2 rounded-full bg-white shadow-lg hover:shadow-xl text-stone-700 hover:text-amber-600 transition-all'>
+            <FaAngleLeft className='text-2xl' />
+          </button>
+          <button onClick={scrollRight} className='p-2 rounded-full bg-white shadow-lg hover:shadow-xl text-stone-700 hover:text-amber-600 transition-all'>
+            <FaAngleRight className='text-2xl' />
+          </button>
+        </div>
+      </div>
+
+      {/* Product Cards Container */}
+      <div 
+        ref={scrollElement}
+        className='flex gap-6 overflow-x-auto scrollbar-none px-4 pb-4'
+      >
+        {loading ? (
+          loadingList.map((_, index) => (
+            <div key={index} className='min-w-[300px] bg-white rounded-2xl shadow-lg animate-pulse'>
+              <div className='h-64 bg-gray-200 rounded-t-2xl' />
+              <div className='p-6 space-y-4'>
+                <div className='h-6 bg-gray-200 rounded-full w-3/4' />
+                <div className='h-4 bg-gray-200 rounded-full w-1/2' />
+                <div className='h-10 bg-gray-200 rounded-full' />
+              </div>
+            </div>
+          ))
+        ) : (
+          data.map((product, index) => (
+            <Link 
+              key={product._id}
+              to={`/product/${product._id}`}
+              className='group min-w-[300px] bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all overflow-hidden'
+            >
+              {/* Image Section */}
+              <div className='relative h-64 overflow-hidden'>
+                <img
+                  src={product.productImage[0]}
+                  alt={product.productName}
+                  className='w-full h-full object-cover group-hover:scale-105 transition-transform duration-500'
+                  loading='lazy'
+                />
+                <div className='absolute inset-0 bg-gradient-to-b from-transparent via-stone-900/20 to-stone-900/60' />
+                <div className='absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-medium text-stone-800 shadow-sm'>
+                  {product.category}
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className='p-6 bg-gradient-to-b from-white via-gray-50 to-white/90'>
+                <h3 className='text-xl font-bold text-stone-800 mb-2 line-clamp-2'>
+                  {product.productName}
+                </h3>
+
+                {/* Rating */}
+                <div className='flex items-center mb-4'>
+                  <div className='flex text-amber-500'>
+                    {[...Array(5)].map((_, i) => (
+                      <FiStar key={i} className='w-4 h-4 fill-current' />
+                    ))}
+                  </div>
+                  <span className='text-sm text-stone-500 ml-2'>(24 reviews)</span>
+                </div>
+
+                {/* Pricing */}
+                <div className='flex justify-between items-center mb-6'>
+                  <div>
+                    <p className='text-2xl font-bold text-green-600'>
+                      {displayNPRCurrency(product.sellingPrice)}
+                    </p>
+                    <p className='text-stone-400 line-through text-sm'>
+                      {displayNPRCurrency(product.price)}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Add to Cart */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    addToCart(e, product._id)
+                  }}
+                  className='w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-full font-medium transition-colors flex items-center justify-center gap-2'
+                >
+                  <BsCart className='text-lg' />
+                  Add to Cart
+                </button>
+              </div>
+            </Link>
+          ))
+        )}
       </div>
     </div>
   )
 }
+
 export default VerticalCardProduct

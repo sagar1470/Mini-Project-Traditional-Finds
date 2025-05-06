@@ -10,6 +10,7 @@ import imageb1 from '../assest/banner/1.jpg'
 import imageb2 from '../assest/banner/2.jpg'
 import imageb3 from '../assest/banner/3.jpg'
 import imageb4 from '../assest/banner/4.jpg'
+import image6 from '../assest/banner/img.png.jpg'
 
 
 // import imageMobile1 from '../assest/banner/img1_mobile.jpg'
@@ -37,7 +38,7 @@ const BannerProduct = () => {
     // image3,
     // image4,
     // image5,
-    // image6,
+    image6,
     imageb1,
     imageb2,
     imageb3,

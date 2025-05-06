@@ -12,6 +12,23 @@ import updateProductController from "../controller/product/updateProduct.js";
 import getCategoryProduct from "../controller/product/getCategoryProductOne.js";
 import getCategoryWiseProduct from "../controller/product/getCategoryWiseProduct.js";
 import getProductDetails from "../controller/product/getProductDetails.js";
+import addCartController from "../controller/user/addCartController.js";
+import countCartProduct from "../controller/user/countCartProduct.js";
+import DisplayingAddedCartProduct from "../controller/user/DisplayingAddedCartProduct.js";
+import UpdateAddToCart from "../controller/user/UpdateAddToCart.js";
+import deleteAddToCartProduct from "../controller/user/deleteAddToCartProduct.js";
+import SearchProduct from "../controller/product/searchProduct.js";
+import filterProduct from "../controller/product/filterProduct.js";
+import paymentController from "../controller/order/paymentController.js";
+import webhooks from "../controller/order/webhooks.js";
+import orderController from "../controller/order/orderController.js";
+import allOrderController from "../controller/order/allorderController.js";
+import orderRequestController from "../controller/order/orderRequestController.js";
+import myOrder from "../controller/order/myOrderController.js";
+import myOrderController from "../controller/order/myOrderController.js";
+import allOrderRequestController from "../controller/order/allOrderRequestController.js";
+
+
 
 const router = express.Router()
 
@@ -31,5 +48,25 @@ router.post("/update-product", authToken, updateProductController)
 router.get("/get-categoryProduct", getCategoryProduct)
 router.post("/category-product", getCategoryWiseProduct)
 router.post("/product-details", getProductDetails)
+router.get("/search", SearchProduct)
+router.post("/filter-product", filterProduct)
+
+// product cart added
+router.post("/add-to-cart", authToken, addCartController)
+router.get("/count-cart-product", authToken, countCartProduct)
+router.get("/display-added-cart-product", authToken, DisplayingAddedCartProduct)
+router.post("/update-add-to-cart", authToken, UpdateAddToCart)
+router.post("/delete-add-to-cart-product", authToken, deleteAddToCartProduct)
+
+
+// payment and order
+router.post("/checkout", authToken, paymentController)
+router.post("/webhook", webhooks) // api/webhook
+router.get("/order-list", authToken, orderController)
+router.get("/all-order", authToken, allOrderController)
+router.post('/order-request', authToken, orderRequestController)
+router.get('/myorder',authToken, myOrderController)
+router.get('/all-order-request', authToken, allOrderRequestController)
+
 
 export default router

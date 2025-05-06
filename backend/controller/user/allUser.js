@@ -2,8 +2,7 @@ import userModel from "../../models/userModel.js"
 
 async  function allUser(req, res){
     try {
-         console.log("userId", req.userId);
-        
+     
          const allUser = await userModel.find();
 
          res.status(200).json({
@@ -14,7 +13,7 @@ async  function allUser(req, res){
          })
 
     } catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             message : err.message || err,
             error: true,
             success : false,

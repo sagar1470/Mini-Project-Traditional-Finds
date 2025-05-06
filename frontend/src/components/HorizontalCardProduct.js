@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct.js'
 import displayNPRCurrency from '../helpers/displayCurrency.js'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
 import { Link } from 'react-router-dom'
 import addToCart from '../helpers/addToCart.js'
+import Context from '../context/index.js'
 
 const HorizontalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([])
@@ -12,6 +13,13 @@ const HorizontalCardProduct = ({ category, heading }) => {
 
   const [scroll, setScroll] = useState(0)
   const scrollElement = useRef()
+
+  const { fetchUserAddToCart } = useContext(Context)
+  
+    const handleAddToCart = async(e, id)=>{
+      await addToCart(e, id)
+      await fetchUserAddToCart()
+    }
 
   const fetchData = async () => {
     setLoading(true)
@@ -51,7 +59,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
           {loading ? (
             loadingList.map((product, index) => {
               return (
-                <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'>
+                <div className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex' key={index}>
                   <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px] animate-pulse'>
 
                   </div>
@@ -103,6 +111,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                     <img
                       src={product.productImage[0]}
                       alt={product.productName}
+                      key={product._id || index}
                       className='w-full h-full object-cover transition-transform duration-300 hover:scale-110 '
                     />
                   </div>
@@ -128,7 +137,7 @@ const HorizontalCardProduct = ({ category, heading }) => {
                       className='mt-2 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-xs font-medium px-4 py-1 rounded-full transition-all'
                       onClick={(e) => {
                         e.preventDefault();
-                        addToCart(e, product?._id)
+                        handleAddToCart(e, product?._id)
                       }}
                     >
                       Add to Cart

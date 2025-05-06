@@ -10,6 +10,14 @@ import AllProduct from "../pages/AllProduct";
 import Introduction from "../context/Introduction";
 import CategoryProduct from "../pages/CategoryProduct";
 import ProductDetails from "../pages/ProductDetails";
+import CartProduct from "../pages/CartProduct";
+import SearchProduct from "../pages/SearchProduct";
+import Success from "../pages/Success";
+import Cancel from "../pages/Cancel";
+import PaidOrder from "../pages/PaidOrder";
+import AllPaidOrder from "../pages/AllPaidOrder";
+import MyOrder from "../pages/MyOrder";
+import AllOrderRequest from "../pages/AllOrderRequest";
 
 
 const router = createBrowserRouter([
@@ -39,12 +47,36 @@ const router = createBrowserRouter([
                 element: <Signup/>
             },
             {
-                path: "product-category/:categoryName",
+                path: "product-category",
                 element: <CategoryProduct/>
             },
             {
                 path: "product/:id",
                 element: <ProductDetails/>
+            },
+            {
+                path: "cart-product",
+                element: <CartProduct/>
+            },
+            {
+                path: "search",
+                element: <SearchProduct/>
+            },
+            {
+                path: "success",
+                element: <Success/>
+            },
+            {
+                path: "cancel",
+                element: <Cancel/>
+            },
+            {
+                path: "paid-order",
+                element: <PaidOrder/>
+            },
+            {
+                path: "myorder",
+                element: <MyOrder/>
             },
             {
                 path: "admin-panel",
@@ -57,6 +89,14 @@ const router = createBrowserRouter([
                     {
                         path : "all-product",
                         element: <AllProduct/>
+                    },
+                    {
+                        path : "all-paid-order",
+                        element: <AllPaidOrder/>
+                    },
+                    {
+                        path : "order-request",
+                        element: <AllOrderRequest/>
                     },
                 ]
             },

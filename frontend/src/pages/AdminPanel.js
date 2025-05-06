@@ -39,42 +39,7 @@ const AdminPanel = () => {
     }
   }
   return (
-    // <div className='min-h-[calc(100vh-100px)] md:flex hidden '>
-
-    //   <aside className='bg-white min-h-full w-full max-w-60 customeShadow'>
-
-    //     <div className='h-40 flex justify-center flex-col items-center mt-3 border-b-2'>
-    //       <div className='text-4xl cursor-pointer pl-2 ' >
-    //         {
-    //           user?.profilePic ? (
-    //             <img src={user?.profilePic} className='w-20 h-20 rounded-full' alt={user?.name} />
-    //           )
-    //             : (
-    //               <FaRegCircleUser />
-    //             )
-    //         }
-    //       </div>
-
-    //       <p className='capitalize text-lg font-semibold pr-1'>{user?.name}</p>
-    //       <p className='text-sm pr-1 opacity-85'>{user?.role}</p>
-
-    //     </div>
-
-    //     {/* {navigation} */}
-    //     <div>
-    //       <nav className='grid p-4 opacity-100'>
-    //         <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All Users</Link>
-    //         <Link to={"all-product"} className='px-2 py-1 hover:bg-slate-100'>All Product</Link>
-    //         <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-800'>Logout</button>
-
-    //       </nav>
-    //     </div>
-    //   </aside>
-
-    //   <main className='w-full h-full p-2'>
-    //     <Outlet/>
-    //   </main>
-    // </div>
+   
 
 
     <div className='min-h-[calc(100vh-100px)] md:flex hidden bg-gradient-to-b from-gray-50 to-gray-100  mt-20'>
@@ -118,6 +83,22 @@ const AdminPanel = () => {
           >
             <HiBriefcase className='w-5 h-5 mr-3 text-slate-400 group-hover:text-blue-400' />
             <span className='font-medium'>All Products</span>
+          </Link>
+
+          <Link
+            to="all-paid-order"
+            className='flex items-center px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700/50 hover:text-white transition-all group'
+          >
+            <HiBriefcase className='w-5 h-5 mr-3 text-slate-400 group-hover:text-blue-400' />
+            <span className='font-medium'>All Transaction</span>
+          </Link>
+
+          <Link
+            to="order-request"
+            className='flex items-center px-4 py-3 rounded-lg text-slate-300 hover:bg-slate-700/50 hover:text-white transition-all group'
+          >
+            <HiBriefcase className='w-5 h-5 mr-3 text-slate-400 group-hover:text-blue-400' />
+            <span className='font-medium'>All Order Request</span>
           </Link>
         </nav>
 

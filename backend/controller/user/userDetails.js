@@ -2,7 +2,7 @@ import userModel from "../../models/userModel.js";
 
 async function userDetailsController(req, res){
     try {
-        console.log("userId", req.userId);
+        
         const user = await userModel.findById(req.userId)
 
         res.status(200).json({
@@ -12,11 +12,11 @@ async function userDetailsController(req, res){
             message: "user details"
         })
 
-        console.log(user);
+       
 
 
     } catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             message : err.message || err,
             error: true,
             success : false,

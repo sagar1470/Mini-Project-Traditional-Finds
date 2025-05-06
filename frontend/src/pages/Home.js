@@ -1,13 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CategoryList from '../components/CategoryList'
 import BannerProduct from '../components/BannerProduct'
 import HorizontalCardProduct from '../components/HorizontalCardProduct'
 import VerticalCardProduct from '../components/VerticalProductCard'
 import '../App.css'
 import herobg from '../assest/herobg.jpeg'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
+
+  const navigate = useNavigate()
+  const searchInput = useLocation()
+  const [search, setSearch] = useState([searchInput.search.split("=")[1] || ""])
+
+  // const handleSearch = (e)=>{
+  //   const { value } = e.target
+   
+  //   setSearch(value)
+
+  //   if(value){
+  //     navigate(`/search?q=${value}`)
+  //   }else{
+  //     navigate("/search")
+  //   }
+  // }
+  const handleSearch = () => {
+    if (search) {
+      navigate(`/search?q=${search}`)
+    } else {
+      navigate("/search")
+    }
+  }
+  const handleInputChange = (e) => {
+    setSearch(e.target.value)
+    console.log(e.target.value)
+  }
+
   return (
     // <div>
     //   <BannerProduct/>
@@ -29,7 +59,7 @@ const Home = () => {
     // </div>
 
 
-    <div className="bg-slate-200 min-h-screen p-4">
+    <div className=" min-h-screen p-4">
 
       {/* Header */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm fixed w-full z-10">
@@ -37,8 +67,8 @@ const Home = () => {
           <h1 className="text-2xl font-bold text-amber-700 font-serif">Traditional Finds</h1>
           <nav className="hidden md:flex gap-8">
             <a href="#" className="text-gray-700 hover:text-amber-800 transition-colors font-medium">Pottery Collection</a>
-            <a href="#" className="text-gray-700 hover:text-amber-800 transition-colors font-medium">Artisan Workshops</a>
-            <a href="#" className="text-gray-700 hover:text-amber-800 transition-colors font-medium">Custom Orders</a>
+            <Link to="/myorder" className="text-gray-700 hover:text-amber-800 transition-colors font-medium">My Orders</Link>
+            <Link to="/paid-order" className="text-gray-700 hover:text-amber-800 transition-colors font-medium">My Pyment History</Link>
           </nav>
         </div>
       </header>
@@ -58,10 +88,14 @@ const Home = () => {
             <div className="max-w-2xl mx-auto flex gap-2 mb-6 bg-white/20 backdrop-blur-sm rounded-full p-1 shadow-lg">
               <input
                 type="text"
+                value={search}
+                onChange={handleInputChange}
                 placeholder="Search pottery crafts..."
                 className="flex-1 md:px-6 px-1 py-3 bg-transparent border-none text-white placeholder-gray-200 focus:ring-0 rounded-full"
               />
-              <button className="bg-amber-600 hover:bg-amber-700 text-white px-4 md:px-8 py-3 rounded-full transition-colors flex items-center md:gap-2">
+              <button 
+              className="bg-amber-600 hover:bg-amber-700 text-white px-4 md:px-8 py-3 rounded-full transition-colors flex items-center md:gap-2"
+              onClick={handleSearch}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                 </svg>
@@ -91,10 +125,8 @@ const Home = () => {
 
       {/* vertical product */}
 
-      <div className="bg-gradient-to-b from-amber-50 to-white">
+      <div className="bg-gradient-to-b from-amber-200 via-white to-gray-50">
         {/* Featured Banner */}
-
-
 
         {/* Curated Collections */}
         <section className="w-full mx-auto px-4 py-16 relative overflow-hidden">
@@ -138,7 +170,7 @@ const Home = () => {
         </section>
 
         {/* Category Showcase Sections */}
-        <section className="bg-stone-200 py-16">
+        <section className="bg-gradient-to-br from-blue-100 via-indigo-100 to-white py-16">
           <div className="max-w-full mx-auto max-h-full px-4 space-y-10">
             {[
               { category: "clothing", heading: "Traditional Attire", description: "Authentic cultural garments and accessories" },
@@ -146,7 +178,7 @@ const Home = () => {
               { category: "herbal", heading: "Organic Products", description: "Natural remedies and wellness items" },
               { category: "musical", heading: "Organic Products", description: "Natural remedies and wellness items" },
             ].map((section, index) => (
-              <div key={index} className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-gradient-to-r from-amber-100/30 to-stone-50">
+              <div key={index} className="relative overflow-hidden rounded-[3rem] shadow-2xl bg-gradient-to-b from-amber-100  via-white to-amber-200 ">
                 <div className="p-8 md:p-12">
                   <div className="mb-8">
                     <h3 className="text-3xl font-bold text-stone-800 mb-2">{section.heading}</h3>
@@ -191,4 +223,5 @@ const Home = () => {
 
   )
 }
+
 export default Home

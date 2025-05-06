@@ -1,15 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { IoStar } from "react-icons/io5";
 import { IoStarHalf } from "react-icons/io5";
 import SummaryApi from '../common'
 import displayNPRCurrency from '../helpers/displayCurrency';
+import RecomamandedProduct from '../components/RecommandedProduct';
+import Context from '../context';
+import addToCart from '../helpers/addToCart';
 
 
 const ProductDetails = () => {
   const [data, setData] = useState({
     productName: "",
-    brandName: "",
+    sellerName: "",
     category: "",
     productImage: [],
     description: "",
@@ -18,6 +21,13 @@ const ProductDetails = () => {
     shopName: "",
   })
 
+  const { fetchUserAddToCart } = useContext(Context)
+  const navigate = useNavigate()
+
+  const handleAddToCart = async(e, id)=>{
+    await addToCart(e, id)
+    await fetchUserAddToCart()
+  }
   const params = useParams()
   const [loading, setLoading] = useState(false)
   const productImListLoading = new Array(4).fill(null)
@@ -52,7 +62,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     fetchProductDetails()
-  }, [])
+  }, [params])
 
   const handleMouseEnterProduct = (imageURL) => {
     setActiveImage(imageURL)
@@ -76,11 +86,19 @@ const ProductDetails = () => {
     setZoomImage(false)
   }
 
-  return (
-    <div className='container mx-auto mt-20'>
-      <div className="lg:relative lg:left-[-3rem] lg:w-[calc(100%+7rem)] ">
+  const handleBuyProduct = async (e, id) => {
+    await addToCart(e, id)
+    await fetchUserAddToCart()
+    navigate("/cart-product")
+  }
+    
 
-        <div className=' min-h-[200px] flex flex-col lg:flex-row gap-4'>
+  
+  return (
+    <div className=' p-4 mx-auto mt-20'>
+      
+
+        <div className=' min-h-[200px] flex flex-col lg:flex-row gap-4 mb-20'>
 
           {/* product image */}
           <div className='h-96 flex flex-col lg:flex-row-reverse gap-4'>
@@ -104,7 +122,6 @@ const ProductDetails = () => {
                   </div>
                 )
               }
-
 
             </div>
 
@@ -170,8 +187,8 @@ const ProductDetails = () => {
               </div>
             ) : (
               <div className='flex flex-col  gap-1'>
-                <p className='bg-red-200 text-red-600 px-2 rounded-full w-fit'>{data?.productName}</p>
-                <h2 className='text-2xl lg:text-4xl font-medium'>{data?.brandName}</h2>
+                <p className='bg-red-200 text-red-600 px-2 rounded-full w-fit'>{data?.sellerName}</p>
+                <h2 className='text-2xl lg:text-4xl font-medium'>{data?.productName}</h2>
                 <p className='captalize text-slate-500'>{data.category}</p>
 
                 <div className='text-red-600 flex items-center gap-1'>
@@ -188,9 +205,19 @@ const ProductDetails = () => {
                 </div>
 
                 <div className='flex items-center gap-3 '>
-                <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white transition duration-200'>Buy</button>
+                <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white transition duration-200'
+                onClick={(e)=>{handleBuyProduct(e, data?._id)}}
+                >Buy</button>
                   {/* <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px] text-red-600 font-medium hover:bg-red-600 hover:text-white'>Buy</button> */}
-                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px]  font-medium bg-red-600 text-white hover:bg-white hover:text-red-600 transition duration-200'>Add to Cart</button>
+                  <button className='border-2 border-red-600 rounded px-3 py-1 min-w-[120px]  font-medium bg-red-600 text-white hover:bg-white
+                   hover:text-red-600 transition duration-200'
+                   onClick={(e)=>{
+                    e.preventDefault();
+                    handleAddToCart(e, data?._id)
+                   }}
+                   >
+                    Add to Cart
+                    </button>
                 </div>
 
                 <div>
@@ -203,8 +230,21 @@ const ProductDetails = () => {
           }
 
         </div>
+
+        {
+            data?.category && (
+              <RecomamandedProduct
+            category={data?.category}
+            heading="Recomanded Product"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-6"
+            hideHeader
+          />
+            )
+            
+          }
+
       </div>
-    </div>
+    
   )
 }
 

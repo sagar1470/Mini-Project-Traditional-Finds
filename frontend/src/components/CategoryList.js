@@ -76,7 +76,7 @@ const CategoryList = () => {
                 <div className="w-16 h-16 md:w-28 md:h-28 rounded-full bg-gradient-to-r from-gray-100 to-gray-200 animate-pulse mx-auto" />
               ) : (
                 <Link
-                  to={`/product-category/${item.category}`}
+                  to={'/product-category?category='+item?.category}
                   className="block space-y-2 transform transition-all duration-300 hover:-translate-y-2"
                 >
                   <div className="relative w-16 h-16 md:w-28 md:h-28 bg-white rounded-full overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 group mx-auto">

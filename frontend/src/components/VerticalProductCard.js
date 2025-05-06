@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import fetchCategoryWiseProduct from '../helpers/fetchCategoryWiseProduct.js'
 import displayNPRCurrency from '../helpers/displayCurrency.js'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa6'
@@ -6,12 +6,20 @@ import { Link } from 'react-router-dom'
 import addToCart from '../helpers/addToCart.js'
 import { FiStar } from 'react-icons/fi'
 import { BsCart } from 'react-icons/bs'
+import Context from '../context/index.js'
 
 const VerticalCardProduct = ({ category, heading }) => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const loadingList = new Array(4).fill(null)
   const scrollElement = useRef()
+
+  const { fetchUserAddToCart } = useContext(Context)
+
+  const handleAddToCart = async(e, id)=>{
+    await addToCart(e, id)
+    await fetchUserAddToCart()
+  }
 
   const fetchData = async () => {
     setLoading(true)
@@ -82,7 +90,7 @@ const VerticalCardProduct = ({ category, heading }) => {
 
               {/* Product Info */}
               <div className='p-6 bg-gradient-to-b from-white via-gray-50 to-white/90'>
-                <h3 className='text-xl font-bold text-stone-800 mb-2 line-clamp-2'>
+                <h3 className='text-xl font-bold text-stone-800 mb-2 line-clamp-1'>
                   {product.productName}
                 </h3>
 
@@ -112,7 +120,7 @@ const VerticalCardProduct = ({ category, heading }) => {
                 <button
                   onClick={(e) => {
                     e.preventDefault()
-                    addToCart(e, product._id)
+                    handleAddToCart(e, product?._id)
                   }}
                   className='w-full bg-amber-600 hover:bg-amber-700 text-white py-3 rounded-full font-medium transition-colors flex items-center justify-center gap-2'
                 >

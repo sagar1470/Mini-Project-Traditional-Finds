@@ -18,7 +18,7 @@ const UploadProduct = ({
   const [data, setData] = useState({
     ...productData,
     productName: productData?.productName,
-    brandName: productData?.brandName,
+    sellerName: productData?.brandName,
     category: productData?.category,
     productImage: productData?.productImage || [],
     description: productData?.description,
@@ -318,13 +318,13 @@ const UploadProduct = ({
 
           {/* Brand Name */}
           <div className='space-y-2'>
-            <label htmlFor='brandName' className='block text-sm font-semibold text-gray-700'>Brand Name</label>
+            <label htmlFor='sellerName' className='block text-sm font-semibold text-gray-700'>seller Name</label>
             <input
               type='text'
-              id='brandsName'
-              name='brandName'
-              placeholder='Enter brand name'
-              value={data.brandName}
+              id='sellerName'
+              name='sellerName'
+              placeholder='Enter seller name'
+              value={data.sellerName}
               onChange={handleOnChange}
               className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/60 backdrop-blur focus:ring-2 focus:ring-blue-500'
               required

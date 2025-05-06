@@ -16,7 +16,7 @@ const UploadProduct = ({
 
   const [data, setData] = useState({
     productName: "",
-    brandName: "",
+    sellerName: "",
     category: "",
     productImage: [],
     description: "",
@@ -318,12 +318,12 @@ const UploadProduct = ({
 
               {/* Brand Name */}
               <div className='space-y-2'>
-                <label className='block text-sm md:text-base font-semibold text-gray-700'>Brand Name</label>
+                <label className='block text-sm md:text-base font-semibold text-gray-700'>Seller Name</label>
                 <input
                   type='text'
-                  name='brandName'
+                  name='sellerName'
                   placeholder='Enter brand name'
-                  value={data.brandName}
+                  value={data.sellerName}
                   onChange={handleOnChange}
                   className='w-full px-4 py-3 rounded-xl border border-gray-300 bg-white/60 backdrop-blur focus:ring-2 focus:ring-blue-500'
                   required

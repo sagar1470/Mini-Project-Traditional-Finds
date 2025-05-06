@@ -15,8 +15,6 @@ async function updateUser(req, res){
 
         const user = await userModel.findById(sessionUser)
 
-        console.log("user.role", user.role)
-
 
         const updateUsers = await userModel.findByIdAndUpdate(userId, payload)
 
@@ -29,7 +27,7 @@ async function updateUser(req, res){
 
 
     } catch (err) {
-        res.status(400).json({
+        res.status(500).json({
             message : err.message || err,
             error: true,
             success : false,
